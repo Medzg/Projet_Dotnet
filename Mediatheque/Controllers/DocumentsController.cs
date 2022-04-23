@@ -32,6 +32,12 @@ namespace Mediatheque.Controllers
             return View(_service.GetMany());
         }
 
+        // GET: Documents
+        [HttpPost]
+        public IActionResult Index(string searchString)
+        {
+            return View(string.IsNullOrEmpty(searchString) ? _service.GetMany() : _service.ChercherDocument(searchString));
+        }
         // GET: Documents/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -184,5 +190,7 @@ namespace Mediatheque.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+     
+        
     }
 }

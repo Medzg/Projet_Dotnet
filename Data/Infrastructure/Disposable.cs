@@ -31,12 +31,14 @@ namespace PS.Data
         // // TODO: substituer le finaliseur uniquement si 'Dispose(bool disposing)' a du code pour libérer les ressources non managées
         ~Disposable()
         {
+            
             // Ne changez pas ce code. Placez le code de nettoyage dans la méthode 'Dispose(bool disposing)'
             Dispose(disposing: false);
         }
 
         public void Dispose()
         {
+            //this is an unsafe code , thread locking + memory leaking
             // Ne changez pas ce code. Placez le code de nettoyage dans la méthode 'Dispose(bool disposing)'
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30104.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{6590DB8A-6799-4610-A6A3-DA1CE957B635}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicePattern", "ServicePattern\ServicePattern.csproj", "{3FD3FA0D-1EBE-436B-8EC3-271DAFC523E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediatheque", "Mediatheque\Mediatheque.csproj", "{14426400-1DD0-498C-AD0E-BA86A3ECEBC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mediatheque", "Mediatheque\Mediatheque.csproj", "{14426400-1DD0-498C-AD0E-BA86A3ECEBC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

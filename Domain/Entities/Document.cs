@@ -29,11 +29,10 @@ namespace Domain.Entities
         public string Titre { get; set; }
         public string Auteur { get; set; }
         public string Annee { get; set; }
-        [NotMapped]
-        public bool Empruntable => Emprunts == null || Emprunts.Any();
 
         [NotMapped]
-        public bool Emprunte {
+        public bool Empruntable
+        {
             get
             {
                 if ( Emprunts == null || Emprunts.Count == 0)
@@ -42,7 +41,10 @@ namespace Domain.Entities
                 }
                 return Emprunts?.Last()?.DateRetour != null;
             }
-        }
+        } 
+
+        [NotMapped]
+        public bool Emprunte =>Emprunts == null || Emprunts.Any();
         [NotMapped]
         public int? NbEmprunts => Emprunts?.Count();
 

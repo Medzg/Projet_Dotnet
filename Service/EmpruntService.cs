@@ -2,20 +2,17 @@
 using PS.Data.Infrastructure;
 using ServicePattern;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Service
 {
     public class EmpruntService : Service<Emprunt>, IEmpruntService
     {
         private readonly IDocumentService _documentService;
-        public IUnitOfWork uiprop { get; set; }
+   
 
         public EmpruntService(IUnitOfWork ui, IDocumentService documentService) : base(ui)
         {
-            uiprop = ui;
             _documentService = documentService;
         }
 
@@ -61,31 +58,16 @@ namespace Service
 
         public void Rendre(Document doc)
         {
-            if (doc != null)
-            {
-                //get and remove from table Emprunt
+            var document = doc ?? throw new Exception("Document not found");
 
-                var emprunts = this.GetMany(x => x.DocumentFk == doc.Key);
-                if (emprunts.Any())
-                {
-                    var emprunt = emprunts.LastOrDefault();
-                    emprunt.DateRetour = DateTime.Now;
-
-
-                    this.Update(emprunt);
-                    this.Commit();
-                }
-
-                // update attributs of document
-                // not mapped 
-                // var document = _documentService.GetById(doc.Key);
-                // _documentService.Update(doc);
-                // _documentService.Commit();
-            }
-            else
-            {
-                throw new Exception("Document not found");
-            }
+            var emprunts = this.GetMany(x => x.DocumentFk == document.Key);
+            if (!emprunts.Any()) return;
+            //get last emprunt
+            var emprunt = emprunts.LastOrDefault();
+            emprunt.DateRetour = DateTime.Now;
+            //update emprunt
+            this.Update(emprunt);
+            this.Commit();
         }
     }
 }

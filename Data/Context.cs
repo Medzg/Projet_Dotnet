@@ -3,19 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Data.Configurations;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 
 namespace Data
 {
-    public class Context: DbContext
+    public class Context : DbContext
     {
         public Context()
         {
-            
         }
+
         public DbSet<Audio> Audios { get; set; }
         public DbSet<Categorie> Categories { get; set; }
         public DbSet<Client> Clients { get; set; }
@@ -24,9 +23,13 @@ namespace Data
         public DbSet<Livre> Livres { get; set; }
         public DbSet<Mediatheque> Mediatheques { get; set; }
         public DbSet<Video> Videos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer( "Data source=TUNWL0343151; INITIAL CATALOG= MediathequeProject; INTEGRATED SECURITY= TRUE;MultipleActiveResultSets=true").UseLazyLoadingProxies();
+            optionsBuilder
+                .UseSqlServer(
+                    "Data source=TUNWL0343151; INITIAL CATALOG= MediathequeProject; INTEGRATED SECURITY= TRUE;MultipleActiveResultSets=true")
+                .UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -70,11 +70,11 @@
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Key">Delete</a> |
                 @if (item.Empruntable)
                 {
-                    <a class="btn btn-dark" asp-action="Emprunter" asp-route-id="@item.Key">Emprunter</a>
+                    <a class="btn btn-outline-light" asp-action="Emprunter" asp-route-id="@item.Key">Emprunter</a>
                 }
                 else
                 {
-                    <a class="btn btn-dark" asp-action="Rendre" asp-route-id="@item.Key">Rendre</a>
+                    <a class="btn btn-outline-light" asp-action="Rendre" asp-route-id="@item.Key">Rendre</a>
                 }
             </td>
         </tr>

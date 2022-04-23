@@ -18,7 +18,8 @@ namespace Mediatheque.Controllers
         private readonly IEmpruntService _empruntService;
         private readonly IClientService _clientService;
 
-        public DocumentsController(Context context,IDocumentService service, IEmpruntService empruntService, IClientService clientService)
+        public DocumentsController(Context context, IDocumentService service, IEmpruntService empruntService,
+            IClientService clientService)
         {
             _context = context;
             _service = service;
@@ -36,18 +37,21 @@ namespace Mediatheque.Controllers
         [HttpPost]
         public IActionResult Index(string searchString)
         {
-            return View(string.IsNullOrEmpty(searchString) ? _service.GetMany() : _service.ChercherDocument(searchString));
+            return View(string.IsNullOrEmpty(searchString)
+                ? _service.GetMany()
+                : _service.ChercherDocument(searchString));
         }
+
         // GET: Documents/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var document = await _context.Documents
-                .FirstOrDefaultAsync(m => m.Key == id);
+            var document = _service.GetById(id.Value);
+
             if (document == null)
             {
                 return NotFound();
@@ -62,11 +66,8 @@ namespace Mediatheque.Controllers
             return View();
         }
 
-        // POST: Documents/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Key,Titre,Auteur,Annee")] Document document)
         {
             if (ModelState.IsValid)
@@ -75,31 +76,31 @@ namespace Mediatheque.Controllers
                 _service.Commit();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(document);
         }
 
         // GET: Documents/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var document = await _context.Documents.FindAsync(id);
+            var document = _service.GetById(id.Value);
+
             if (document == null)
             {
                 return NotFound();
             }
+
             return View(document);
         }
 
-        // POST: Documents/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Key,Titre,Auteur,Annee")] Document document)
+        public IActionResult Edit(int id, [Bind("Key,Titre,Auteur,Annee")] Document document)
         {
             if (id != document.Key)
             {
@@ -108,24 +109,13 @@ namespace Mediatheque.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(document);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DocumentExists(document.Key))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _service.Update(document);
+                _service.Commit();
+
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(document);
         }
 
@@ -137,8 +127,8 @@ namespace Mediatheque.Controllers
                 return NotFound();
             }
 
-            var document = await _context.Documents
-                .FirstOrDefaultAsync(m => m.Key == id);
+            var document = _service.GetById(id.Value);
+
             if (document == null)
             {
                 return NotFound();
@@ -149,18 +139,12 @@ namespace Mediatheque.Controllers
 
         // POST: Documents/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var document = await _context.Documents.FindAsync(id);
-            _context.Documents.Remove(document);
-            await _context.SaveChangesAsync();
+            var document = _service.GetById(id);
+            _service.Delete(document);
+            _service.Commit();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool DocumentExists(int id)
-        {
-            return _context.Documents.Any(e => e.Key == id);
         }
 
         public IActionResult Emprunter(int? id)
@@ -180,17 +164,37 @@ namespace Mediatheque.Controllers
         }
 
         [HttpPost, ActionName("Emprunter")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EnpunterMeth(int id)
+        public IActionResult EnpunterMeth(int id)
         {
             var document = _service.GetById(id);
             var client = _clientService.GetById(1);
             _empruntService.Emprunter(document, client);
-           
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-     
-        
+
+        public IActionResult Rendre(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var document = _service.GetById(id);
+            if (document == null)
+            {
+                return NotFound();
+            }
+
+            return View(document);
+        }
+
+        [HttpPost, ActionName("Rendre")]
+        public IActionResult Rendre(int id)
+        {
+            var document = _service.GetById(id);
+            _empruntService.Rendre(document);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

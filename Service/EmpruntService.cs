@@ -65,14 +65,22 @@ namespace Service
             {
                 //get and remove from table Emprunt
 
-                this.Delete(this.Get(emp => emp.DocumentFk == doc.Key));
+                var emprunts = this.GetMany(x => x.DocumentFk == doc.Key);
+                if (emprunts.Any())
+                {
+                    var emprunt = emprunts.LastOrDefault();
+                    emprunt.DateRetour = DateTime.Now;
+
+
+                    this.Update(emprunt);
+                    this.Commit();
+                }
 
                 // update attributs of document
                 // not mapped 
-                var document = _documentService.GetById(doc.Key);
-                _documentService.Update(doc);
-                _documentService.Commit();
-                this.Commit();
+                // var document = _documentService.GetById(doc.Key);
+                // _documentService.Update(doc);
+                // _documentService.Commit();
             }
             else
             {

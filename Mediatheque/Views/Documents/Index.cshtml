@@ -72,6 +72,10 @@
                 {
                     <a asp-action="Emprunter" asp-route-id="@item.Key">Emprunter</a>
                 } @*<a asp-action="Emprunter" asp-route-id="@item.Key">Delete</a>*@
+                @if (!item.Emprunte)
+                                {
+                                    <a asp-action="Rendre" asp-route-id="@item.Key">Rendre</a>
+                                }
             </td>
         </tr>
 }

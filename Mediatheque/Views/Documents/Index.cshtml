@@ -59,11 +59,15 @@
                 @Html.DisplayFor(modelItem => item.NbEmprunts)
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Empruntable, new {@disabled = "disabled"})
+                <div class="form-check">
+                @Html.CheckBoxFor(modelItem => item.Empruntable, new {@disabled = "disabled", @class = "form-check-input"})
+                </div>
             </td>
             <td>
-                @Html.CheckBoxFor(modelItem => item.Emprunte, new {@disabled = "disabled"})
-            </td>
+                <div class="form-check form-switch">
+                @Html.CheckBoxFor(modelItem => item.Emprunte, new {@disabled = "disabled", @class = "form-check-input"})
+                </div>
+                </td>
             <td>
                 <a asp-action="Edit" class="btn btn-success" asp-route-id="@item.Key">Edit</a> |
                 <a asp-action="Details" class="btn btn-primary" asp-route-id="@item.Key">Details</a> |

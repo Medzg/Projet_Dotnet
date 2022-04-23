@@ -9,7 +9,8 @@ namespace Domain.Entities
 {
     public class Document
     {
-        public Document(int key, string titre, string auteur, string annee, bool empruntable, bool emprunte, int nbEmprunts, Mediatheque mediatheque, IList<Client> clients)
+        public Document(int key, string titre, string auteur, string annee, bool empruntable, bool emprunte,
+            int nbEmprunts, Mediatheque mediatheque, IList<Client> clients)
         {
             Key = key;
             Titre = titre;
@@ -21,11 +22,9 @@ namespace Domain.Entities
 
         public Document()
         {
-
         }
 
-        [Key]
-        public int Key { get; set; }
+        [Key] public int Key { get; set; }
         public string Titre { get; set; }
         public string Auteur { get; set; }
         public string Annee { get; set; }
@@ -35,18 +34,17 @@ namespace Domain.Entities
         {
             get
             {
-                if ( Emprunts == null || Emprunts.Count == 0)
+                if (Emprunts == null || Emprunts.Count == 0)
                 {
                     return true;
                 }
+
                 return Emprunts?.Last()?.DateRetour != null;
             }
-        } 
+        }
 
-        [NotMapped]
-        public bool Emprunte =>Emprunts == null || Emprunts.Any();
-        [NotMapped]
-        public int? NbEmprunts => Emprunts?.Count();
+        [NotMapped] public bool Emprunte => Emprunts == null || Emprunts.Any();
+        [NotMapped] public int? NbEmprunts => Emprunts?.Count();
 
         public virtual Mediatheque Mediatheque { get; set; }
         public virtual IList<Client> Clients { get; set; }

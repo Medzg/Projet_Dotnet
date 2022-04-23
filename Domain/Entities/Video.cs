@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Video:Document
+    public class Video : Document
     {
         public Video(int dureeFilm, string mentionLegale, int duree, double tarif)
         {
@@ -16,7 +16,6 @@ namespace Domain.Entities
 
         public Video()
         {
-
         }
 
         public int DureeFilm { get; set; }

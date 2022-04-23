@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace PS.Data.Infrastructure
 {
@@ -18,5 +17,4 @@ namespace PS.Data.Infrastructure
         IEnumerable<T> GetAll(); // GetMany()
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null);
     }
-
 }

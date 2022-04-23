@@ -17,11 +17,9 @@ namespace Domain.Entities
 
         public Mediatheque()
         {
-                
         }
 
-        [Key]
-        public int Key { get; set; }
+        [Key] public int Key { get; set; }
         public string Nom { get; set; }
         public virtual IList<Document> Documents { get; set; }
         public virtual IList<Client> Clients { get; set; }

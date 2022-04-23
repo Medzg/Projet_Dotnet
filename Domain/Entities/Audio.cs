@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Entities
 {
-    public class Audio:Document
+    public class Audio : Document
     {
         public Audio(string classification, int duree, double tarif)
         {
@@ -15,8 +15,8 @@ namespace Domain.Entities
 
         public Audio()
         {
-
         }
+
         public string Classification { get; set; }
         public int Duree { get; set; }
         public double Tarif { get; set; }

@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain;
 using Domain.Entities;
 
 namespace Data.Configurations
@@ -12,7 +8,7 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Emprunt> builder)
         {
-            builder.HasKey(cle => new { cle.DateEmprunt  , cle.ClientFk , cle.DocumentFk});
+            builder.HasKey(cle => new {cle.DateEmprunt, cle.ClientFk, cle.DocumentFk});
         }
     }
 }

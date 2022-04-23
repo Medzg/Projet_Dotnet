@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PS.Data
 {
@@ -25,13 +23,11 @@ namespace PS.Data
 
         protected virtual void DisposeCore()
         {
-
         }
 
         // // TODO: substituer le finaliseur uniquement si 'Dispose(bool disposing)' a du code pour libérer les ressources non managées
         ~Disposable()
         {
-            
             // Ne changez pas ce code. Placez le code de nettoyage dans la méthode 'Dispose(bool disposing)'
             Dispose(disposing: false);
         }

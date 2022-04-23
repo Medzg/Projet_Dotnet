@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PS.Data.Infrastructure
+﻿namespace PS.Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {

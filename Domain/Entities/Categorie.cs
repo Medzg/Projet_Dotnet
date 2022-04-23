@@ -6,7 +6,8 @@ namespace Domain.Entities
 {
     public class Categorie
     {
-        public Categorie(int id, int nbEmpruntsMax, double cotisation, double coefTarif, double coefDuree, bool codeReductionActif, IList<Client> clients)
+        public Categorie(int id, int nbEmpruntsMax, double cotisation, double coefTarif, double coefDuree,
+            bool codeReductionActif, IList<Client> clients)
         {
             Id = id;
             NbEmpruntsMax = nbEmpruntsMax;
@@ -19,7 +20,6 @@ namespace Domain.Entities
 
         public Categorie()
         {
-
         }
 
         public int Id { get; set; }

@@ -14,16 +14,14 @@ namespace PS.Data.Infrastructure
         {
             dataContext = new Context();
         }
+
         private DbContext dataContext;
-        public DbContext DataContext
-        {
-            get { return dataContext; }
-        }
+
+        public DbContext DataContext => dataContext;
+
         protected override void DisposeCore()
         {
-            if (dataContext != null)
-                 dataContext.Dispose();
+            dataContext?.Dispose();
         }
     }
-
 }
